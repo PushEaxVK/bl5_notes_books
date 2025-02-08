@@ -9,6 +9,7 @@ let cards = getStorageData();
 renderHTML(createMarkup(cards));
 
 refs.form.addEventListener('submit', onFormSubmit);
+refs.list.addEventListener('click', onBtnDelete);
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -30,4 +31,16 @@ function onFormSubmit(event) {
   renderHTML(createCard(card));
 
   refs.form.reset();
+}
+
+/////////////////////////////////////////
+
+function onBtnDelete(evt) {
+  if (evt.target.nodeName === 'BUTTON') {
+    const id = evt.target.closest('[data-id]').dataset.id;
+    cards = cards.filter(card => id !== card.id);
+    writeStorageData(cards);
+    refs.list.innerHTML = '';
+    renderHTML(createMarkup(cards));
+  }
 }
