@@ -1,3 +1,8 @@
+import { nanoid } from 'nanoid';
+import { refs } from './js/refs';
+import { createMarkup, createCard } from './js/markup-tasks';
+import { renderHTML } from './js/render-tasks';
+import { getStorageData, writeStorageData } from './js/local-storage-api';
 /*
   Створи список справ.
   На сторінці є два інпути які має вводиться назва і текст задачі.
@@ -14,3 +19,30 @@
       <p>Текст</p>
   </li>
 */
+
+let cards = getStorageData();
+
+renderHTML(createMarkup(cards));
+
+refs.form.addEventListener('submit', onFormSubmit);
+
+function onFormSubmit(event) {
+  event.preventDefault();
+
+  const name = refs.form.elements.taskName.value.trim();
+  const descr = refs.form.elements.taskDescription.value.trim();
+
+  const card = {
+    name,
+    description: descr,
+    id: nanoid(),
+  };
+
+  cards.push(card);
+
+  writeStorageData(cards);
+
+  renderHTML(createCard(card));
+
+  refs.form.reset();
+}
