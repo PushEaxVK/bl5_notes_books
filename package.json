@@ -1,12 +1,14 @@
 {
-  "name": "notes_books_v2",
+  "name": "bl5_notes_books",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite --host",
     "dev": "vite",
-    "build": "vite build --base=/notes_books_v2/",
-    "preview": "vite preview"
+    "build": "vite build --base=/bl5_notes_books/",
+    "preview": "vite preview",
+    "push": "node commit.js"
   },
   "devDependencies": {
     "glob": "^11.0.0",
